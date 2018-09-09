@@ -1,10 +1,8 @@
 import express from 'express';
+import { Mercurio } from './src';
 
-const app = express();
-
-app.get('/', function (req, res) {
-    res.send('Hello World!');
-});
+const app = new Mercurio(express);
 
 app.listen(3000, function () {
 });
+
