@@ -1,0 +1,16 @@
+import querystring from 'querystring';
+
+export class SeriesSearchService {
+
+    constructor({http, searchEndpoint}){
+        this.http = http;
+        this.searchEndpoint = searchEndpoint;
+    }
+
+    search({searchTerm}){
+        const url = `${this.searchEndpoint}?${querystring.stringify({q: searchTerm})}`;
+        return this.http
+            .get(url)
+            .then((axiosResponse) => axiosResponse.data);
+    }
+}
