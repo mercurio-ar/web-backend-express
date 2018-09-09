@@ -1,14 +1,17 @@
-export class Mercurio {
-    
-    constructor(express){
-        this.express = express();
+import { Controller, Series } from './Controllers';
 
-        this.express.get('/', function (req, res) {
-            res.send('Hello World!');
-        });
+export class Mercurio extends Controller {
+    
+    applyMiddleware(app) {
+        app.use('/series', this.series);
+        return app;
     }
 
     listen(...args){
-        this.express.listen(...args);
+        this.applyMiddleware(this.express()).listen(...args);
+    }
+
+    get series(){
+        return this.makeRouter(Series);
     }
 }
