@@ -1,0 +1,19 @@
+{
+  "name": "web-backend-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mercurio-ar/web-backend-express.git"
+  },
+  "author": "Sebastian Gonzalez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mercurio-ar/web-backend-express/issues"
+  },
+  "homepage": "https://github.com/mercurio-ar/web-backend-express#readme"
+}
