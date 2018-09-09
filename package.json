@@ -4,16 +4,41 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint --fix ./src",
     "test": "jest"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test -- --forceExit --coverage --bail"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.1",
+    "eslint": "^5.5.0",
+    "husky": "^1.0.0-rc.13",
+    "jest": "^23.5.0",
+    "jshint": "^2.9.6",
+    "lint-staged": "^7.2.2",
+    "typescript": "^3.0.1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mercurio-ar/web-backend-express.git"
   },
-  "author": "Sebastian Gonzalez",
+  "author": "Sebastian Gonzalez (sebastian.h.gonzalez@gmail.com)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mercurio-ar/web-backend-express/issues"
   },
-  "homepage": "https://github.com/mercurio-ar/web-backend-express#readme"
+  "homepage": "https://github.com/mercurio-ar/web-backend-express#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
 }
