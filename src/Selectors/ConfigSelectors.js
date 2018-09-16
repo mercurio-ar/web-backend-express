@@ -17,3 +17,12 @@ export const seriesSearchServiceConfigSelector = compose([
     (seriesServicesConfig) => seriesServicesConfig.search
 ]);
 
+export const dbConfigSelector = compose([
+    configSelector,
+    (config) => config.db
+]);
+
+export const mongoDbConfigSelector = compose ([
+    dbConfigSelector,
+    (dbConfig) => dbConfig.mongo
+]);
