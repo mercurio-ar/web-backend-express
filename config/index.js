@@ -13,4 +13,9 @@ case 'testing': {current = testing; break;}
 default: {current = development; break;}
 }
 
-export default Object.assign({}, current);
+const defaults = {
+    cors: false,
+    port: 3001
+};
+
+export default Object.assign({}, defaults, current);
