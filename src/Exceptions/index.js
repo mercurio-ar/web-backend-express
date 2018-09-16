@@ -1,0 +1,1 @@
+export { NotImplementedException } from './NotImplementedException';

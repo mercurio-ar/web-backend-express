@@ -1,10 +1,9 @@
 import express from 'express';
+import { Mercurio } from './src';
+import config from './config';
 
-const app = express();
+const app = new Mercurio(express, config);
 
-app.get('/', function (req, res) {
-    res.send('Hello World!');
+app.listen(config.port, function () {
 });
 
-app.listen(3000, function () {
-});
