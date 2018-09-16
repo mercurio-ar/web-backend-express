@@ -1,4 +1,7 @@
+import cors from 'cors';
+
 import { Controller, Series } from './Controllers';
+
 
 export class Mercurio extends Controller {
     
@@ -10,6 +13,7 @@ export class Mercurio extends Controller {
     }
 
     applyMiddleware(app) {
+        this.config.cors && app.use(cors());
         app.use(this.configMiddleware);
         app.use('/series', this.series);
         return app;
