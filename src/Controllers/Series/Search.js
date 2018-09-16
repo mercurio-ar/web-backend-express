@@ -32,8 +32,23 @@ export class Search extends Controller {
     searchHandler(req, res) {
         res.locals.searchService.search(req.query).then(result => {
             res.json(
-                result
+                this.toMercurioSearchResult(result.data)
             );
         });
+    }
+
+    toMercurioSearchResult(seriesData){
+        return seriesData.map(serieData => ({
+            id: this.idSelector(serieData),
+            displayName: this.displayNameSelector(serieData),
+        }));
+    }
+
+    idSelector(serieData){
+        return serieData.field.id;
+    }
+
+    displayNameSelector(serieData){
+        return `${serieData.dataset.title} - ${serieData.field.description}`;
     }
 }
