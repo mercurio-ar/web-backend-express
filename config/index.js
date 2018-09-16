@@ -1,16 +1,16 @@
-import Axios from 'axios';
+import development from './development';
+import production from './production';
+import testing from './testing';
 
-const base = {
-    series:{
-        services:{
-            search:{
-                http: Axios,
-                searchEndpoint: 'http://apis.datos.gob.ar/series/api/search/'
-            }
-        }
-    }
-};
+const env = process.env.NODE_ENV;
 
-const current = {};
+let current;
 
-export default Object.assign({}, base, current);
+switch (env) {
+case 'development': {current = development; break;}
+case 'production': {current = production; break;}
+case 'testing': {current = testing; break;}
+default: {current = development; break;}
+}
+
+export default Object.assign({}, current);
