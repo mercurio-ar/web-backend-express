@@ -1,6 +1,6 @@
 import cors from 'cors';
 
-import { Controller, Series } from './Controllers';
+import { Controller, Series, Visualizations } from './Controllers';
 
 
 export class Mercurio extends Controller {
@@ -16,6 +16,7 @@ export class Mercurio extends Controller {
         this.config.cors && app.use(cors());
         app.use(this.configMiddleware);
         app.use('/series', this.series);
+        app.use('/visualizations', this.visualizations);
         return app;
     }
 
@@ -30,5 +31,9 @@ export class Mercurio extends Controller {
 
     get series(){
         return this.makeRouter(Series);
+    }
+
+    get visualizations(){
+        return this.makeRouter(Visualizations);
     }
 }

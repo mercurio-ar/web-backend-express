@@ -1,1 +1,2 @@
-export * from './Series';
+export { SeriesSearchService } from './Series';
+export { VisualizationsService } from './Visualizations';
