@@ -23,7 +23,9 @@ export class Visualizations extends Controller {
     getVisualizationsHandler(req, res, next){
         this.visualizationsServiceSelector(res)
             .getVisualizations()
-            .then(res.json)
+            .then(result => {
+                res.json(result);
+            })
             .catch(next);
     }
 
@@ -45,8 +47,8 @@ export class Visualizations extends Controller {
     visualizationsRepositoryMiddleware(req, res, next){
         const mongoConfig = mongoDbConfigSelector(res);
         const visualizationsRepository = new VisualizationsRepository(mongoConfig);
-        visualizationsRepository.connect().then((repository) => {
-            res.locals.visualizationRepository = repository;
+        visualizationsRepository.connect().then(() => {
+            res.locals.visualizationRepository = visualizationsRepository;
             next();
         }).catch(
             next
