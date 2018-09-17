@@ -7,7 +7,7 @@ export default {
     db: {
         mongo: {
             mongoose,
-            uri: 'mongodb://root:example@localhost:8081/mercurio'
+            uri: 'mongodb://root:example@localhost:27017/admin'
         }
     },
     series:{
