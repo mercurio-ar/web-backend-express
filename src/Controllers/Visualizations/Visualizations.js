@@ -2,46 +2,27 @@ import { Controller } from '../Controller';
 import { VisualizationsService } from '../../Services';
 import { VisualizationsRepository } from '../../Repositories';
 import { mongoDbConfigSelector } from '../../Selectors';
+import { VisualizationsQueryStack } from './Query';
+import { visualizationsRepositorySelector } from '../../Selectors';
 
 export class Visualizations extends Controller {
-
-    constructor(...args){
-        super(...args);
-
-        this.visualizationsRepositoryMiddleware = this.visualizationsRepositoryMiddleware.bind(this);
-        this.visualizationsServiceMiddleware = this.visualizationsServiceMiddleware.bind(this);
-        this.getVisualizationsHandler = this.getVisualizationsHandler.bind(this);
-    }
 
     applyMiddleware(router) {
         router.use(this.visualizationsRepositoryMiddleware);
         router.use(this.visualizationsServiceMiddleware);
-        router.get('/', this.getVisualizationsHandler);
+        router.use(this.visualizationsQueryStack);
         return router;
     }
 
-    getVisualizationsHandler(req, res, next){
-        this.visualizationsServiceSelector(res)
-            .getVisualizations()
-            .then(result => {
-                res.json(result);
-            })
-            .catch(next);
-    }
-
-    visualizationsServiceSelector(res){
-        return res.locals.visualizationsService;
+    get visualizationsQueryStack() {
+        return this.makeRouter(VisualizationsQueryStack);
     }
 
     visualizationsServiceMiddleware(req, res, next){
         res.locals.visualizationsService = new VisualizationsService(
-            this.visualizationsRepositorySelector(res)
+            visualizationsRepositorySelector(res)
         );
         next();
-    }
-
-    visualizationsRepositorySelector(res){
-        return res.locals.visualizationRepository;
     }
 
     visualizationsRepositoryMiddleware(req, res, next){
