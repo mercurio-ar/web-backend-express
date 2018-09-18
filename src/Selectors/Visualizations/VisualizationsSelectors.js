@@ -5,3 +5,7 @@ export function visualizationsServiceSelector(res) {
 export function visualizationsRepositorySelector(res) {
     return res.locals.visualizationRepository;
 }
+
+export function visualizationsSerializerSelector(res) {
+    return res.locals.visualizationSerializer;
+}
