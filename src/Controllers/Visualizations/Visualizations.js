@@ -4,6 +4,7 @@ import { VisualizationsRepository } from '../../Repositories';
 import { mongoDbConfigSelector } from '../../Selectors';
 import { VisualizationsQueryStack } from './Query';
 import { visualizationsRepositorySelector } from '../../Selectors';
+import { VisualizationsCommandStack } from './Command';
 
 export class Visualizations extends Controller {
 
@@ -11,7 +12,12 @@ export class Visualizations extends Controller {
         router.use(this.visualizationsRepositoryMiddleware);
         router.use(this.visualizationsServiceMiddleware);
         router.use(this.visualizationsQueryStack);
+        router.use(this.visualizationsCommandStack);
         return router;
+    }
+
+    get visualizationsCommandStack() {
+        return this.makeRouter(VisualizationsCommandStack);
     }
 
     get visualizationsQueryStack() {
