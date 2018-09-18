@@ -28,4 +28,8 @@ export class VisualizationsRepository {
     getVisualizations() {
         return this.model.find().exec();
     }
+
+    createVisualization(name, series) {
+        return this.model.create({name, series});
+    }
 }
