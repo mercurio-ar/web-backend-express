@@ -14,6 +14,10 @@ export class VisualizationsService {
             .createVisualization(this._defaultName(), series);
     }
 
+    deleteVisualizations(visualizationsIds) {
+        return this.visualizationsRepository.deleteVisualizations(visualizationsIds);
+    }
+
     _defaultName() {
         return 'New Visualization';
     }
