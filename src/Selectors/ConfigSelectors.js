@@ -12,7 +12,7 @@ export const seriesServicesConfigSelector = compose([
     (seriesConfig) => seriesConfig.services
 ]);
 
-export const seriesSearchServiceConfigSelector = compose([
+export const seriesServiceConfigSelector = compose([
     seriesServicesConfigSelector,
     (seriesServicesConfig) => seriesServicesConfig.search
 ]);

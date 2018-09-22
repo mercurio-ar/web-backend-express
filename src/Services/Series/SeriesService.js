@@ -1,6 +1,6 @@
 import querystring from 'querystring';
 
-export class SeriesSearchService {
+export class SeriesService {
 
     constructor({http, searchEndpoint}){
         this.http = http;
