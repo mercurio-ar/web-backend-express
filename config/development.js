@@ -10,12 +10,10 @@ export default {
             uri: 'mongodb://root:example@localhost:27017/admin'
         }
     },
-    series:{
-        services:{
-            search:{
-                http: Axios,
-                searchEndpoint: 'http://apis.datos.gob.ar/series/api/search/'
-            }
+    services: {
+        series: {
+            baseUrl: 'http://apis.datos.gob.ar/',
+            http: Axios,
         }
-    }
+    },
 };
