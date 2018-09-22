@@ -8,13 +8,18 @@ import {
     VisualizationsRepository
 } from '../../Repositories';
 import {
-    VisualizationsService
+    VisualizationsService,
+    SeriesService
 } from '../../Services';
 import {
     mongoDbConfigSelector,
-    visualizationsRepositorySelector
+    visualizationsRepositorySelector,
+    seriesServiceSelector,
+    seriesServiceConfigSelector,
+    seriesAdapterSelector
 } from '../../Selectors';
 import {
+    SeriesAdapter,
     VisualizationAdapter
 } from '../../Adapters';
 import {
@@ -25,15 +30,22 @@ import {
 export class Visualizations extends Controller {
 
     applyMiddleware(router) {
+        router.use(this.seriesAdapterMiddleware);
+        router.use(this.visualizationsAdapterMiddleware);
         router.use(this.visualizationsRepositoryMiddleware);
+        router.use(this.seriesServiceMiddleware);
         router.use(this.visualizationsServiceMiddleware);
-        router.use(this.adapterMiddleware);
         router.use(this.visualizationsQueryStack);
         router.use(this.visualizationsCommandStack);
         return router;
     }
 
-    adapterMiddleware(req, res, next) {
+    seriesAdapterMiddleware(req, res, next) {
+        res.locals.seriesAdapter = new SeriesAdapter();
+        next();
+    }
+
+    visualizationsAdapterMiddleware(req, res, next) {
         res.locals.visualizationAdapter = new VisualizationAdapter();
         next();
     }
@@ -47,9 +59,20 @@ export class Visualizations extends Controller {
     }
 
     visualizationsServiceMiddleware(req, res, next) {
-        res.locals.visualizationsService = new VisualizationsService(
-            visualizationsRepositorySelector(res)
-        );
+        res.locals.visualizationsService = new VisualizationsService({
+            visualizationsRepository: visualizationsRepositorySelector(res),
+            seriesService: seriesServiceSelector(res),
+        });
+        next();
+    }
+
+    seriesServiceMiddleware(req, res, next) {
+        const seriesServiceConfig = seriesServiceConfigSelector(res);
+        res.locals.seriesService = new SeriesService(Object.assign({},
+            seriesServiceConfig, {
+                seriesAdapter: seriesAdapterSelector(res)
+            }
+        ));
         next();
     }
 
