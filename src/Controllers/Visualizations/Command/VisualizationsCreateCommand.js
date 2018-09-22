@@ -1,19 +1,21 @@
 import {
-    Controller
+    Controller,
 } from '../../Controller';
+
 import {
     visualizationsAdapterSelector,
-    visualizationsServiceSelector
+    visualizationsServiceSelector,
 } from '../../../Selectors';
+
 
 export class VisualizationsCreateCommand extends Controller {
 
     applyMiddleware(router) {
-        router.use(this.createVisualizationHandler);
+        router.use(this.handler);
         return router;
     }
 
-    createVisualizationHandler(req, res) {
+    handler(req, res) {
         const seriesIds = visualizationsAdapterSelector(res).parse(req.body).seriesIds();
         visualizationsServiceSelector(res)
             .createVisualizationWithSeries(seriesIds)

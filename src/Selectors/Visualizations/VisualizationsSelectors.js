@@ -6,6 +6,6 @@ export function visualizationsRepositorySelector(res) {
     return res.locals.visualizationRepository;
 }
 
-export function visualizationsSerializerSelector(res) {
-    return res.locals.visualizationSerializer;
+export function visualizationsAdapterSelector(res) {
+    return res.locals.visualizationAdapter;
 }

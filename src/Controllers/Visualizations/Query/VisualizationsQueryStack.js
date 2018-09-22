@@ -1,27 +1,20 @@
 import {
     Controller,
 } from '../../Controller';
+
 import {
-    visualizationsServiceSelector,
-    visualizationsAdapterSelector,
-} from '../../../Selectors';
+    GetCurrentUserVisualizationsCommand,
+} from './GetCurrentUserVisualizationsCommand';
+
 
 export class VisualizationsQueryStack extends Controller {
 
     applyMiddleware(router) {
-        router.get('/', this.getVisualizationsHandler);
+        router.get('/', this.getCurrentUserVisualizations);
         return router;
     }
 
-    getVisualizationsHandler(req, res, next) {
-        visualizationsServiceSelector(res)
-            .getVisualizations()
-            .then(result => {
-                res.json(
-                    visualizationsAdapterSelector(res)
-                        .serialize(result)
-                );
-            })
-            .catch(next);
+    get getCurrentUserVisualizations() {
+        return this.makeRouter(GetCurrentUserVisualizationsCommand);
     }
 }
