@@ -15,7 +15,7 @@ export class VisualizationsService {
     }
 
     deleteVisualizations(visualizationsIds) {
-        return this.visualizationsRepository.deleteVisualizations(visualizationsIds);
+        return this.visualizationsRepository.deleteVisualizationsById(visualizationsIds);
     }
 
     _defaultName() {

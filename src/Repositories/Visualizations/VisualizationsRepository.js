@@ -36,7 +36,7 @@ export class VisualizationsRepository {
         });
     }
 
-    deleteVisualizations(visualizationsIds) {
+    deleteVisualizationsById(visualizationsIds) {
         return this.model.deleteMany({
             _id: {
                 $in: visualizationsIds
