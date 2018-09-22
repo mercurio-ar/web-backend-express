@@ -2,19 +2,14 @@ import { compose } from '../Utils';
 
 export const configSelector = (res) => res.locals.config;
 
-export const seriesConfigSelector = compose([
+export const servicesConfigSelector = compose([
     configSelector,
-    (config) => config.series
-]);
-
-export const seriesServicesConfigSelector = compose([
-    seriesConfigSelector,
-    (seriesConfig) => seriesConfig.services
+    (config) => config.services
 ]);
 
 export const seriesServiceConfigSelector = compose([
-    seriesServicesConfigSelector,
-    (seriesServicesConfig) => seriesServicesConfig.search
+    servicesConfigSelector,
+    (servicesConfig) => servicesConfig.series
 ]);
 
 export const dbConfigSelector = compose([
