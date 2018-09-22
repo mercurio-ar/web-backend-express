@@ -2,6 +2,7 @@ import {
     Controller
 } from '../Controller';
 import {
+    seriesServiceSelector,
     seriesServiceConfigSelector
 } from '../../Selectors';
 import {
@@ -30,7 +31,7 @@ export class Search extends Controller {
     }
 
     searchHandler(req, res) {
-        res.locals.seriesService.search(req.query).then(result => {
+        seriesServiceSelector(res).search(req.query).then(result => {
             res.json(
                 this.toMercurioSearchResult(result.data)
             );
