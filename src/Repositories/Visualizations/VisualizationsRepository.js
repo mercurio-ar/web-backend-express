@@ -30,6 +30,17 @@ export class VisualizationsRepository {
     }
 
     createVisualization(name, series) {
-        return this.model.create({name, series});
+        return this.model.create({
+            name,
+            series
+        });
+    }
+
+    deleteVisualizations(visualizationsIds) {
+        return this.model.deleteMany({
+            _id: {
+                $in: visualizationsIds
+            }
+        });
     }
 }
