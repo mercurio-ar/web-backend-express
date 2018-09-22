@@ -11,13 +11,6 @@ import {
 
 export class VisualizationsCreateCommand extends Controller {
 
-    constructor(...args) {
-        super(...args);
-
-        this.serializerMiddleware = this.serializerMiddleware.bind(this);
-        this.createVisualizationHandler = this.createVisualizationHandler.bind(this);
-    }
-
     applyMiddleware(router) {
         router.use(this.serializerMiddleware);
         router.use(this.createVisualizationHandler);
@@ -25,7 +18,7 @@ export class VisualizationsCreateCommand extends Controller {
     }
 
     serializerMiddleware(req, res, next) {
-        res.locals.visualizationSerializer = this.visualizationSerializer();
+        res.locals.visualizationSerializer = new VisualizationSerializer();
         next();
     }
 
@@ -36,10 +29,5 @@ export class VisualizationsCreateCommand extends Controller {
             .then(vis => {
                 res.json(vis);
             });
-    }
-
-    visualizationSerializer() {
-        this._visualizationSerializer = this._visualizationSerializer || new VisualizationSerializer();
-        return this._visualizationSerializer;
     }
 }
