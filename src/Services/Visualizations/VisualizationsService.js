@@ -8,6 +8,7 @@ export class VisualizationsService {
         this.seriesService = seriesService;
 
         this.completeSeries = this.completeSeries.bind(this);
+        this.completeSerie = this.completeSerie.bind(this);
     }
 
     getVisualizations() {
@@ -24,6 +25,10 @@ export class VisualizationsService {
 
         return this.seriesService.getSeriesById(seriesIds)
             .then((series) => this._mapSeriesIds(visualizations, series));
+    }
+
+    completeSerie(visualization){
+        return this.completeSeries([visualization]).then(visualizations => visualizations[0]);
     }
 
     _mapSeriesIds(visualizations, series) {
@@ -45,7 +50,7 @@ export class VisualizationsService {
         this._validateSeries(seriesIds);
         return this.visualizationsRepository
             .createVisualization(this._defaultName(), seriesIds)
-            .then(this.completeSeries);
+            .then(this.completeSerie);
     }
 
     deleteVisualizations(visualizationsIds) {
