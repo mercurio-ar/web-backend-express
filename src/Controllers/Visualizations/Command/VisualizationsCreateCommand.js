@@ -15,7 +15,7 @@ export class VisualizationsCreateCommand extends Controller {
         return router;
     }
 
-    handler(req, res) {
+    handler(req, res, next) {
         const seriesIds = visualizationsAdapterSelector(res).parse(req.body).seriesIds();
         visualizationsServiceSelector(res)
             .createVisualizationWithSeries(seriesIds)
@@ -23,6 +23,7 @@ export class VisualizationsCreateCommand extends Controller {
                 res.json(
                     visualizationsAdapterSelector(res).serialize(vis)
                 );
-            });
+            })
+            .catch(next);
     }
 }
