@@ -2,10 +2,11 @@ import {
     Controller
 } from '../Controller';
 import {
-    seriesSearchServiceConfigSelector
+    seriesServiceSelector,
+    seriesServiceConfigSelector
 } from '../../Selectors';
 import {
-    SeriesSearchService
+    SeriesService
 } from '../../Services';
 
 export class Search extends Controller {
@@ -13,24 +14,24 @@ export class Search extends Controller {
     constructor(...args){
         super(...args);
 
-        this.searchServiceMiddleware = this.searchServiceMiddleware.bind(this);
+        this.seriesServiceMiddleware = this.seriesServiceMiddleware.bind(this);
         this.searchHandler = this.searchHandler.bind(this);
     }
 
     applyMiddleware(router) {
-        router.use(this.searchServiceMiddleware);
+        router.use(this.seriesServiceMiddleware);
         router.get('/', this.searchHandler);
         return router;
     }
 
-    searchServiceMiddleware(req, res, next) {
-        const searchServiceConfig = seriesSearchServiceConfigSelector(res);
-        res.locals.searchService = new SeriesSearchService(searchServiceConfig);
+    seriesServiceMiddleware(req, res, next) {
+        const seriesServiceConfig = seriesServiceConfigSelector(res);
+        res.locals.seriesService = new SeriesService(seriesServiceConfig);
         next();
     }
 
     searchHandler(req, res) {
-        res.locals.searchService.search(req.query).then(result => {
+        seriesServiceSelector(res).search(req.query).then(result => {
             res.json(
                 this.toMercurioSearchResult(result.data)
             );

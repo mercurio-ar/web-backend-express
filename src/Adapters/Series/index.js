@@ -1,0 +1,1 @@
+export { SeriesAdapter } from './SeriesAdapter';
