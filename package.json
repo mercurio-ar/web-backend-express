@@ -1,5 +1,5 @@
 {
-  "name": "web-backend-express",
+  "name": "@mercurio-ar/web-backend-express",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
