@@ -11,10 +11,14 @@ export class SeriesApiParser {
         return seriesApiResponse.meta.map((meta, index) => ({
             id: meta.field && meta.field.id,
             displayName: meta.field && meta.field.description,
-            points: seriesApiResponse.data.map((point) => ({
-                x: point[0],
-                y: point[index]
-            }))
+            points: mapReducePoints(seriesApiResponse, index)
         })).slice(1);
     }
+}
+
+function mapReducePoints(seriesApiResponse, index) {
+    return seriesApiResponse.data.map((point) => ({
+        x: point[0],
+        y: point[index]
+    })).reduce(((acc, curr) => (curr.y ? acc.concat(curr) : acc)), []);
 }
