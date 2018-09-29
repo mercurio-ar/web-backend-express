@@ -1,3 +1,5 @@
+// @ts-check
+
 export class VisualizationsService {
 
     constructor({
@@ -27,7 +29,7 @@ export class VisualizationsService {
             .then((series) => this._mapSeriesIds(visualizations, series));
     }
 
-    completeSerie(visualization){
+    completeSerie(visualization) {
         return this.completeSeries([visualization]).then(visualizations => visualizations[0]);
     }
 
@@ -66,5 +68,12 @@ export class VisualizationsService {
         if (invalid) {
             throw Error('Expected Array of string to create visualization');
         }
+    }
+
+    addSeriesToVisualization(visualizationId, seriesIds) {
+        this._validateSeries(seriesIds);
+        return this.visualizationsRepository
+            .addSeriesToVisualization(visualizationId, seriesIds)
+            .then(this.completeSerie);
     }
 }
