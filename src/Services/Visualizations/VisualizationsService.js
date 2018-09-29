@@ -73,7 +73,7 @@ export class VisualizationsService {
     addSeriesToVisualization(visualizationId, seriesIds) {
         this._validateSeries(seriesIds);
         return this.visualizationsRepository
-            .addSeriesToVisualization(visualizationId, seriesIds)
+            .addSeriesToVisualizationById(visualizationId, seriesIds)
             .then(this.completeSerie);
     }
 }
