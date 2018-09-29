@@ -43,4 +43,16 @@ export class VisualizationsRepository {
             }
         });
     }
+
+    addSeriesToVisualizationById(visualizationId, seriesIds) {
+        return this.model.findByIdAndUpdate(visualizationId, {
+            $push: {
+                series: {
+                    $each: seriesIds
+                }
+            }
+        }, {
+            new: true
+        });
+    }
 }

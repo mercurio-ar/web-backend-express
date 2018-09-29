@@ -1,3 +1,4 @@
+// @ts-check
 import bodyParser from 'body-parser';
 
 import {
@@ -9,6 +10,7 @@ import {
 import {
     VisualizationsDeleteCommand
 } from './VisualizationsDeleteCommand';
+import { AddSerieToVisualizationCommand } from './AddSerieToVisualizationCommand';
 
 export class VisualizationsCommandStack extends Controller {
 
@@ -16,6 +18,7 @@ export class VisualizationsCommandStack extends Controller {
         router.use(bodyParser.json());
         router.post('/', this.createVisualization);
         router.delete('/', this.deleteVisualization);
+        router.put('/:visualizationId', this.addSerieToVisualization);
         return router;
     }
 
@@ -25,5 +28,9 @@ export class VisualizationsCommandStack extends Controller {
 
     get deleteVisualization() {
         return this.makeRouter(VisualizationsDeleteCommand);
+    }
+
+    get addSerieToVisualization() {
+        return this.makeRouter(AddSerieToVisualizationCommand);
     }
 }
