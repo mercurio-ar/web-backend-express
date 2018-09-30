@@ -4,19 +4,18 @@ import {
 
 import {
     visualizationsServiceSelector,
-    visualizationsAdapterSelector,
 } from '../../../Selectors';
 
 
 export class VisualizationsDeleteCommand extends Controller {
 
     applyMiddleware(router) {
-        router.use(this.handler);
+        router.use('/:visualizationId', this.handler);
         return router;
     }
     
     handler(req, res) {
-        const visualizationIds = visualizationsAdapterSelector(res).parse(req.body).visualizationsIds();
+        const visualizationIds = req.params.visualizationId;
         visualizationsServiceSelector(res)
             .deleteVisualizations(visualizationIds)
             .then(() => {

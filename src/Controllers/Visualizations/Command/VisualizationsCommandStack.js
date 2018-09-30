@@ -17,7 +17,7 @@ export class VisualizationsCommandStack extends Controller {
     applyMiddleware(router) {
         router.use(bodyParser.json());
         router.post('/', this.createVisualization);
-        router.delete('/', this.deleteVisualization);
+        router.delete('/:visualizationId', this.deleteVisualization);
         router.put('/:visualizationId', this.addSerieToVisualization);
         return router;
     }
