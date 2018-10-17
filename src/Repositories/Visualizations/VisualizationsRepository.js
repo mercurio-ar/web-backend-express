@@ -55,4 +55,21 @@ export class VisualizationsRepository {
             new: true
         });
     }
+
+    updateVisualization({
+        id,
+        name,
+        series
+    }) {
+        return this.model.findByIdAndUpdate(id, {
+            name,
+            $addToSet: {
+                series: {
+                    $each: series.map(serie => serie.id)
+                }
+            }
+        }, {
+            new: true
+        });
+    }
 }
