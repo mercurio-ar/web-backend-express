@@ -10,7 +10,12 @@ import {
 import {
     VisualizationsDeleteCommand
 } from './VisualizationsDeleteCommand';
-import { AddSerieToVisualizationCommand } from './AddSerieToVisualizationCommand';
+import {
+    AddSerieToVisualizationCommand
+} from './AddSerieToVisualizationCommand';
+import {
+    VisualizationsUpdateCommand
+} from './VisualizationsUpdateCommand';
 
 export class VisualizationsCommandStack extends Controller {
 
@@ -18,6 +23,7 @@ export class VisualizationsCommandStack extends Controller {
         router.use(bodyParser.json());
         router.post('/', this.createVisualization);
         router.delete('/:visualizationId', this.deleteVisualization);
+        router.patch('/:visualizationId', this.updateVisualization);
         router.put('/:visualizationId', this.addSerieToVisualization);
         return router;
     }
@@ -28,6 +34,10 @@ export class VisualizationsCommandStack extends Controller {
 
     get deleteVisualization() {
         return this.makeRouter(VisualizationsDeleteCommand);
+    }
+
+    get updateVisualization() {
+        return VisualizationsUpdateCommand;
     }
 
     get addSerieToVisualization() {
