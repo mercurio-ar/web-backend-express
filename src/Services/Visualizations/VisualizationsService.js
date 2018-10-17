@@ -76,4 +76,10 @@ export class VisualizationsService {
             .addSeriesToVisualizationById(visualizationId, seriesIds)
             .then(this.completeSerie);
     }
+
+    updateVisualization(visualization) {
+        return this.visualizationsRepository
+            .updateVisualization(visualization)
+            .then(this.completeSerie);
+    }
 }
