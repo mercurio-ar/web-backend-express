@@ -12,4 +12,8 @@ export class VisualizationParser {
     visualizationsIds() {
         return [this.thing.visualization.id];
     }
+
+    visualization() {
+        return this.thing.visualization;
+    }
 }
